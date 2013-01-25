@@ -30,14 +30,38 @@
 
 var CHOOO = CHOOO || {};
 
-CHOOO.utils = (function(){
+	CHOOO = (function(){
 	// private properties
-	var counter;
+	var counter,
+		config = {
+		resultContainer: '#result',
+		consoleMsgs: true
+	},
 
+ // check 
+ // http://stackoverflow.com/questions/1290131/javascript-how-to-create-an-array-of-object-literals-in-a-loop
+ // http://stackoverflow.com/questions/180844/referencing-a-javascript-object-literal-array
+		selectionList = [
+			{ 
+				title: 'default title',
+				img_src: 'default_imgsource.jpg',
+				description: 'default description'
+			},
+			{ 
+				title: 'default title',
+				img_src: 'default_imgsource.jpg',
+				description: 'default description'
+			},
+
+		]
+	;
 	// public api
 	return {
 		displayOptions: function () {
 			// display options a and b with their properties, including right or wrong
+			if(config.consoleMsgs){
+				console.log('%c (/•ิ_•ิ)/ >>>> displaying options <<<< \\(^_^ )', 'background: #222; color: #bada55');
+			}
 		},
 		nextSelection: function () {
 			// move to the next pair of options
@@ -47,9 +71,10 @@ CHOOO.utils = (function(){
 		},
 		displayResult: function () {
 			// display result of selection
+			$(config.resultContainer + ' p').html('Correct!!!');
 		},
 		finishApp: function () {
-
+			// displays the last view of the app
 		}
 	};
 }());
