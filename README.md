@@ -1,4 +1,4 @@
 chooose
 =======
 
-Selection simple mini game
+Simple selection mini game
