@@ -63,40 +63,81 @@ var CHOOO = CHOOO || {};
 	// public api
 	return {
 		selectionList: [
-			{ 
-				id: '01',
-				title: '01_01',
-				img_src: '01_01.jpg',
-				description: 'default description'
+			{
+				option_A:{ 
+					id: '01',
+					title: '01_a',
+					img_src: '01_a.jpg',
+					description: 'default description',
+					isCorrect: true
+				},
+				option_B:{ 
+					id: '02',
+					title: '01_b',
+					img_src: '01_b.jpg',
+					description: 'default description',
+					isCorrect: false
+				}
 			},
-			{ 
-				id: '02',
-				title: '01_02',
-				img_src: '01_02.jpg',
-				description: 'default description'
+			{
+				option_A:{ 
+					id: '03',
+					title: '02_a',
+					img_src: '02_a.jpg',
+					description: 'default description',
+					isCorrect: false
+				},
+				option_B:{ 
+					id: '04',
+					title: '02_b',
+					img_src: '02_b.jpg',
+					description: 'default description',
+					isCorrect: true
+				}
 			}
 
 		],
+		init: function ( usrContainer ) {
+
+		},
+		insertSelectionData: function () {
+			console.log( CHOOO.selectionList[1].option_A.id );
+			console.log('img src: ');
+			console.log( CHOOO.selectionList[0].option_A.img_src );
+
+			var options = ['option_A','option_B'];
+			for(var i = 0; i < options.length; i++){
+
+				//title
+				$(config.container + ' #'+ options[i] +' h3').html(CHOOO.selectionList[ position ][options[i]].title);
+				//image
+				$(config.container + ' #'+ options[i] +' img').attr('src', CHOOO.selectionList[ position ][options[i]].img_src);
+				//description
+				$(config.container + ' #'+ options[i] +' p').html(CHOOO.selectionList[ position ][options[i]].description);
+				//answer
+				$(config.container + ' #'+ options[i]).data('is-correct',CHOOO.selectionList[ position ][options[i]].isCorrect);
+			}
+		},
 		attachEventListeners: function () {
 			console.log( 'this is container:' + container );
 
 			$(config.container + ' .option').on('click',function(e){
 				console.log($(this));
 				// add displayResult etc here
+				// result evaluation
+				CHOOO.displayResult($(this));
+				// display result
+				// go to next set (change images with animation)
+
 			});
 
-			$(config.container + ' #option-A h3').animate({
+			$(config.container + ' #option_A h3').animate({
 			  opacity: 0
-			}, {
+			},{
 			  duration: 1800,
 			  easing: 'ease-out',
 			  complete: function() { /* ... */ }
 			});
-		},
-		traverseSelection: function () {
-			for( var i = 0; i < selectionList.length; i++){
-				console.log(selectionList[i].title);
-			};
 		},
 		testNextSelection: function () {
 			console.log( selectionList[position].title );
@@ -107,6 +148,8 @@ var CHOOO = CHOOO || {};
 			if(config.consoleMsgs){
 				console.log('%c (/•ิ_•ิ)/ >>>> displaying options <<<< \\(^_^ )', 'background: #222; color: #bada55');
 			}
+			//CHOOO.selectionList[1][0]
+
 		},
 		nextSelection: function () {
 			// move to the next pair of options
@@ -114,9 +157,18 @@ var CHOOO = CHOOO || {};
 		isCorrect: function () {
 			// establish if selection was right
 		},
-		displayResult: function () {
+		displayResult: function ( selectedElem ) {
 			// display result of selection
-			$(config.resultContainer + ' p').html('Correct!!!');
+			console.log(selectedElem);
+			// check if selected element isCorrect attribute is true or false
+			if(true){
+				$(config.resultContainer + ' p').html('Correct!!!');
+			}
+			else{
+
+			}
+
+			
 		},
 		finishApp: function () {
 			// displays the last view of the app
